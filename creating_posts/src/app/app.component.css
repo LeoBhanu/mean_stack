@@ -1,0 +1,11 @@
+.make-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.beautify-textarea {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: cursive;
+}

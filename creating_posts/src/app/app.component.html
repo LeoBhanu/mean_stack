@@ -1,0 +1,139 @@
+<div class="container-fluid">
+
+
+    <div class="row bg-dark" style="height: 55px; position: sticky;top: 0%; z-index: 1;">
+        <div class="col-3 text-light" style="justify-content: start;align-items: center;display: flex;font-size: xx-large;font-style: italic;">
+            {{title}}
+        </div>
+    </div>
+
+    <!-- posting card -->
+    <div class="container bg-dark p-1 rounded">
+        <div class="card">
+            <div class="card-header badge-primary h2" style="justify-content: start;align-items: center;display: flex;font-size: large;font-style: italic;">
+                Create Post
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <textarea [(ngModel)]="post.postValue" class="form-control beautify-textarea" cols="100" rows="2" placeholder="write something to post......."></textarea>
+
+            </div>
+            <div class="card-footer" style="padding-bottom: 2px;">
+                <a href="#" style="font-size: larger;" class="badge badge-pill badge-primary ml-2" (click)="postText()">POST TEXT</a>
+                <label style="font-size: larger;cursor: pointer;" class="badge badge-pill badge-secondary ml-2">POST Picture
+                  <input (change)="postImage($event)" type="file" style="display: none;">
+                </label>
+                <label style="font-size: larger;cursor: pointer;" class="badge badge-pill badge-warning ml-2">POST Video
+                  <input (change)="postVideo($event)"type="file" style="display: none;">
+                </label>
+            </div>
+
+        </div>
+    </div>
+    <ng-container *ngFor="let item of postList; let i = index;">
+        <!-- written post -->
+        <div class="container mt-3" *ngIf="item.postType == 'TEXT'">
+            <div class="card">
+                <div class="card-header badge-primary h2" style="justify-content: start;align-items: center;display: flex;font-size: large;font-style: italic;">
+                    BHANU
+                </div>
+
+                <div class="card-body beautify-textarea" style="padding-bottom: 0%;">
+                    <h2> {{item.postValue}}</h2>
+                    <div class="dropdown-divider"></div>
+                    <div class="d-flex justify-content-sm-between text-muted">
+                        <span style="font-size: small;"> {{ item.likeCount}} likes</span>
+                        <span style="font-size: small;">{{item.commentList.length}} comments</span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between" style="padding-bottom: 10px;">
+                    <div>
+                        <a href="#" style="font-size: larger;" (click)="likeCount(item)" class="badge badge-pill badge-primary ml-2">LIKE</a>
+                        <a href="#" style="font-size: larger;" (click)="addComment(item)" class="badge badge-pill badge-primary ml-2">comment</a>
+                    </div>
+                    <div>
+                        <a href="#" style="font-size: larger;" (click)="deletePost(i)" class="badge badge-pill badge-primary ml-2">DELETE</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- image post -->
+        <div class="container mt-3" *ngIf="item.postType == 'IMAGE'">
+            <div class="card">
+                <div class="card-header badge-primary h2" style="justify-content: start;align-items: center;display: flex;font-size: large;font-style: italic;">
+                    BHANU
+                </div>
+
+                <div class="card-body" style="padding-bottom: 0%;">
+                    <div class="make-center">
+                        <img [src]="item.postValue" alt="my pic">
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="d-flex justify-content-sm-between text-muted">
+                        <span style="font-size: small;"> {{item.likeCount}} likes</span>
+                        <span style="font-size: small;">{{item.commentList.length}} comments</span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between" style="padding-bottom: 10px;">
+                    <div>
+                        <a href="#" style="font-size: larger;" (click)="likeCount(item)" class="badge badge-pill badge-primary ml-2">LIKE</a>
+                        <a href="#" style="font-size: larger;" (click)="addComment(item)" class="badge badge-pill badge-primary ml-2">comment</a>
+                    </div>
+                    <div>
+                        <a href="#" style="font-size: larger;" (click)="deletePost(i)" class="badge badge-pill badge-primary ml-2">DELETE</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- video post -->
+        <div class="container mt-3" *ngIf="item.postType == 'VIDEO'">
+            <div class="card">
+                <div class="card-header badge-primary h2" style="justify-content: start;align-items: center;display: flex;font-size: large;font-style: italic;">
+                    BHANU
+                </div>
+
+                <div class="card-body" style="padding-bottom: 0%;">
+                    <div class="make-center" style="height: 250px;">
+                        <video style="height: 100%; width: 100%;" controls>
+                      <source src="assets/myvideo.mp4" />
+                    </video>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="d-flex justify-content-sm-between text-muted">
+                        <span style="font-size: small;"> {{item.likeCount}} likes</span>
+                        <span style="font-size: small;">{{item.commentList.length}} comments</span>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between" style="padding-bottom: 10px;">
+                    <div>
+                        <a href="#" style="font-size: larger;" (click)="likeCount(item)" class="badge badge-pill badge-primary ml-2">LIKE</a>
+                        <a href="#" style="font-size: larger;" (click)="addComment(item)" class="badge badge-pill badge-primary ml-2">comment</a>
+                    </div>
+                    <div>
+                        <a href="#" style="font-size: larger;" (click)="deletePost(i)" class="badge badge-pill badge-primary ml-2">DELETE</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- if no posts -->
+    <div class="card container mt-3" *ngIf="postList.length === 0" style=" align-content: center; height: 250px;">
+        <div class="card-header">
+            error
+        </div>
+        <div class="card-body make-center">
+            NO POSTS AVAILABE
+        </div>
+        <div class="card-footer">
+            please post some thing to see
+        </div>
+    </div>
+</div>
